@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!-- lang="ar" و dir="rtl" يخليان الصفحة تتجه من اليمين لليسار لأن المحتوى عربي -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دَوِّر - أعد استخدام أدواتك المدرسية</title>
+
+    <!-- أيقونة التبويب (Favicon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- ملف التنسيق (CSS) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== الهيدر وشريط التنقل ===== -->
+    <header class="site-header">
+        <div class="logo">
+            <img src="logo.png" alt="شعار دَوِّر" class="logo-img">
+            <span>دَوِّر</span>
+        </div>
+
+        <!-- أزرار التنقل بين الأقسام، كل زر له data-target يحدد القسم اللي بيروح له -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="home">الرئيسية</button>
+            <button class="nav-btn" data-target="browse">تصفح الأدوات</button>
+            <button class="nav-btn" data-target="add">أضف أداة</button>
+            <button class="nav-btn" data-target="about">عن دَوِّر</button>
+            <button class="nav-btn" data-target="goals">أهداف المشروع</button>
+            <button class="nav-btn" data-target="my-items">أدواتي</button>
+            <!-- زر الحساب: نصه بيتغير بالجافاسكريبت حسب حالة الدخول -->
+            <button class="nav-btn" data-target="account" id="account-nav-btn">تسجيل الدخول</button>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ===== 1. قسم الصفحة الرئيسية ===== -->
+        <section id="home" class="page active-page">
+            <div class="hero">
+                <h1>دَوِّر</h1>
+                <p class="tagline">
+                    منصة مدرسية تساعدك تعيد استخدام أدواتك المدرسية بدل ما ترميها أو تشتري جديدة.
+                    بدّلها، استعرها، أو بيعها بسعر رمزي لزميلك في المدرسة.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" data-target="browse">تصفح الأدوات</button>
+                    <button class="btn btn-secondary" data-target="add">أضف أداة</button>
+                </div>
+            </div>
+
+            <!-- ===== عداد الأثر البيئي ===== -->
+            <div class="impact-section">
+                <h2>أثرنا مع بعض 🌱</h2>
+                <div class="impact-stats">
+                    <div class="impact-box">
+                        <span class="impact-number" id="stat-books">0</span>
+                        <span class="impact-label">كتاب تم إعادة استخدامه</span>
+                    </div>
+                    <div class="impact-box">
+                        <span class="impact-number" id="stat-tools">0</span>
+                        <span class="impact-label">أداة مدرسية تم تبادلها</span>
+                    </div>
+                    <div class="impact-box">
+                        <span class="impact-number" id="stat-rescued">0</span>
+                        <span class="impact-label">قطعة تم إنقاذها من التخلص منها</span>
+                    </div>
+                    <div class="impact-box">
+                        <span class="impact-number" id="stat-students">0</span>
+                        <span class="impact-label">طالب شارك</span>
+                    </div>
+                </div>
+                <p class="impact-note">* الأرقام دي بتتحدث تلقائياً وبشكل حقيقي بناءً على الأدوات والطلاب المشاركين فعلياً على الموقع.</p>
+            </div>
+
+            <div class="how-it-works">
+                <h2>كيف تعمل دَوِّر؟</h2>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-icon">📚</span>
+                        <h3>1. اعرض أداتك</h3>
+                        <p>ما تحتاجه بعد الآن؟ أضفه للمنصة بسهولة.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">🔍</span>
+                        <h3>2. غيرك يلاقيها</h3>
+                        <p>طالب ثاني يحتاجها يشوفها ويتواصل معاك.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">🤝</span>
+                        <h3>3. تبادل، استعارة، أو بيع رمزي</h3>
+                        <p>اختاروا الطريقة الأنسب لكم الاثنين.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 2. قسم تصفح الأدوات ===== -->
+        <section id="browse" class="page">
+            <h2>تصفح الأدوات المتاحة</h2>
+            <p class="section-desc">هذه الأدوات عرضها طلاب آخرون، اضغط "أضف أداة" لو عندك شيء تضيفه.</p>
+
+            <!-- ===== أدوات البحث والفلترة ===== -->
+            <div class="filter-bar">
+                <input type="text" id="search-input" placeholder="🔍 ابحث باسم الأداة...">
+
+                <select id="filter-category">
+                    <option value="الكل">كل الفئات</option>
+                    <option value="كتب">كتب</option>
+                    <option value="قصص">قصص</option>
+                    <option value="أدوات هندسية">أدوات هندسية</option>
+                    <option value="قرطاسية">قرطاسية</option>
+                    <option value="مشاريع مدرسية">مواد ومشاريع مدرسية</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+
+                <select id="filter-method">
+                    <option value="الكل">كل الطرق</option>
+                    <option value="تبادل">تبادل</option>
+                    <option value="استعارة">استعارة</option>
+                    <option value="سعر رمزي">سعر رمزي</option>
+                </select>
+            </div>
+
+            <!-- هنا بتتحط الكروت (Cards) عن طريق JavaScript -->
+            <div id="items-container" class="items-grid">
+                <!-- الكروت رح تنضاف هنا تلقائياً من script.js -->
+            </div>
+
+            <!-- رسالة تظهر لو نتيجة البحث فاضية -->
+            <p id="no-results-msg" class="no-results hidden">مفيش نتائج مطابقة لبحثك 😕</p>
+        </section>
+
+        <!-- ===== 3. قسم إضافة أداة ===== -->
+        <section id="add" class="page">
+            <h2>أضف أداة جديدة</h2>
+            <p class="section-desc">عبّي المعلومات التالية وبتنضاف أداتك لقائمة التصفح مباشرة.</p>
+
+            <!-- نموذج إضافة أداة -->
+            <form id="add-item-form" class="item-form">
+
+                <label for="item-name">اسم الأداة</label>
+                <input type="text" id="item-name" required placeholder="مثال: كتاب رياضيات صف الاول الثانوي">
+
+                <label for="item-image">صورة المنتج:</label>
+                <input type="file" id="item-image" accept="image/*">
+
+                <label for="item-category">الفئة</label>
+                <select id="item-category" required>
+                    <option value="كتب">كتب</option>
+                    <option value="قصص">قصص</option>
+                    <option value="أدوات هندسية">أدوات هندسية</option>
+                    <option value="قرطاسية">قرطاسية</option>
+                    <option value="مشاريع مدرسية">مواد ومشاريع مدرسية</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+
+                <label for="item-condition">الحالة</label>
+                <select id="item-condition" required>
+                    <option value="ممتازة">ممتازة</option>
+                    <option value="جيدة">جيدة</option>
+                    <option value="مقبولة">مقبولة</option>
+                </select>
+
+                <label for="item-method">طريقة الحصول عليها</label>
+                <select id="item-method" required>
+                    <option value="تبادل">تبادل</option>
+                    <option value="استعارة">استعارة</option>
+                    <option value="سعر رمزي">سعر رمزي</option>
+                </select>
+
+                <!-- حقل السعر يظهر فقط لو اختار المستخدم "سعر رمزي" -->
+                <div id="price-field-wrapper" class="hidden">
+                    <label for="item-price">السعر (بالجنيه)</label>
+                    <input type="number" id="item-price" min="0" placeholder="مثال: 20">
+                </div>
+
+                <!-- اسم صاحب الأداة مطلوب عشان يكون واضح مين اللي بيعرضها -->
+                <label for="item-owner">اسمك</label>
+                <input type="text" id="item-owner" required placeholder="مثال: أحمد محمد">
+
+                <!-- رقم الهاتف مطلوب دائماً عشان الطالب التاني يقدر يتواصل -->
+                <label for="item-phone">رقم الهاتف للتواصل</label>
+                <input type="tel" id="item-phone" required pattern="[0-9]{10,15}"
+                       placeholder="مثال: 01012345678" title="اكتب رقم هاتف صحيح (أرقام فقط)">
+
+                <button type="submit" class="btn btn-primary">إضافة الأداة</button>
+            </form>
+
+            <!-- رسالة تأكيد تظهر بعد الإضافة -->
+            <p id="form-success-msg" class="success-msg hidden">✅ تمت إضافة الأداة بنجاح! تقدر تشوفها في قسم تصفح الأدوات.</p>
+        </section>
+
+        <!-- ===== 4. قسم عن دَوِّر ===== -->
+        <section id="about" class="page">
+            <h2>عن دَوِّر</h2>
+
+            <!-- صورة توضيحية لفكرة المشروع -->
+            <img src="about-illustration.png" alt="فكرة مشروع دَوِّر - إعادة تدوير الكتب" class="about-img">
+
+            <div class="about-content">
+                <h3>المشكلة</h3>
+                <p>
+                    كل سنة دراسية، كثير من الطلاب يشترون أدوات وكتب جديدة رغم إن نفس الأدوات
+                    موجودة عند طلاب آخرين خلصوا منها. هذا يسبب هدر في المال وزيادة في النفايات
+                    غير الضرورية.
+                </p>
+
+                <h3>كيف تساعد دَوِّر؟</h3>
+                <p>
+                    دَوِّر منصة بسيطة تتيح للطلاب في نفس المدرسة إعادة استخدام أدواتهم المدرسية
+                    بدل رميها. يقدر أي طالب يعرض أداة ما عاد يحتاجها، وطالب ثاني يلاقيها
+                    ويختار يبدّلها، يستعيرها، أو يشتريها بسعر رمزي بسيط.
+                </p>
+
+                <h3>ليش هذا مهم؟</h3>
+                <ul>
+                    <li>يقلل الهدر والنفايات المدرسية.</li>
+                    <li>يوفر المصاريف على الطلاب وأهاليهم.</li>
+                    <li>يعزز ثقافة التعاون والمشاركة بين الطلاب.</li>
+                </ul>
+
+                <h3>ملاحظة تقنية</h3>
+                <p>
+                    هذا الإصدار من دَوِّر مبني بالكامل بلغات الواجهة الأمامية
+                    (HTML, CSS, JavaScript) ويخزّن البيانات داخل متصفح كل
+                    مستخدم، وهذا اختيار مقصود يخدم الهدف التعليمي للمشروع
+                    ويسمح بتجربته فوراً دون الحاجة لخادم أو استضافة. الخطوة
+                    التالية في خطة تطوير المشروع هي ربطه بقاعدة بيانات
+                    سحابية مشتركة بين كل طلاب المدرسة.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== 5. قسم أهداف المشروع ===== -->
+        <section id="goals" class="page">
+            <h2>أهداف المشروع 🎯</h2>
+            <p class="section-desc">دَوِّر مش بس موقع، هو خطوة عملية نحو مدرسة أقل هدر وأكتر تعاون.</p>
+
+            <div class="goals-grid">
+                <div class="goal-box">
+                    <span class="goal-icon">🌍</span>
+                    <h3>تقليل الهدر البيئي</h3>
+                    <p>تقليل كمية الكتب والأدوات المدرسية اللي بترمى كل سنة بلا داعي.</p>
+                </div>
+
+                <div class="goal-box">
+                    <span class="goal-icon">💰</span>
+                    <h3>توفير المصاريف</h3>
+                    <p>مساعدة الطلاب وأهاليهم على توفير فلوس شراء أدوات ممكن تكون متوفرة أصلاً عند زميل.</p>
+                </div>
+
+                <div class="goal-box">
+                    <span class="goal-icon">🤝</span>
+                    <h3>تعزيز روح التعاون</h3>
+                    <p>بناء ثقافة مشاركة ومساعدة بين الطلاب بدل الاعتماد الكامل على الشراء الفردي.</p>
+                </div>
+
+                <div class="goal-box">
+                    <span class="goal-icon">💻</span>
+                    <h3>توظيف التكنولوجيا لخدمة المجتمع</h3>
+                    <p>استخدام مهارات البرمجة (HTML, CSS, JavaScript) لحل مشكلة حقيقية في البيئة المدرسية.</p>
+                </div>
+
+                <div class="goal-box">
+                    <span class="goal-icon">♻️</span>
+                    <h3>دعم فكرة إعادة الاستخدام</h3>
+                    <p>غرس مفهوم "الاقتصاد الدائري" لدى الطلاب: إعادة استخدام الأشياء بدل استهلاكها ورميها.</p>
+                </div>
+
+                <div class="goal-box">
+                    <span class="goal-icon">🚀</span>
+                    <h3>تنمية الوعي الرقمي</h3>
+                    <p>تشجيع الطلاب على الابتكار وتوظيف التحول الرقمي في حياتهم المدرسية اليومية.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 6. قسم الحساب (تسجيل دخول / إنشاء حساب) ===== -->
+        <section id="account" class="page">
+
+    <!-- لو المستخدم مسجل دخول -->
+    <div id="logged-in-view" class="account-card hidden">
+        <div class="account-icon">👤</div>
+
+        <h2>أهلاً، <span id="welcome-name"></span> 👋</h2>
+
+        <p class="account-subtitle">
+            إنت مسجل دخول دلوقتي على دَوِّر.
+        </p>
+
+        <button id="logout-btn" class="btn btn-secondary">
+            تسجيل الخروج
+        </button>
+    </div>
+
+
+    <!-- لو المستخدم مش مسجل دخول -->
+    <div id="logged-out-view" class="account-card">
+
+        <!-- تسجيل الدخول -->
+        <form id="login-form" class="item-form auth-form">
+
+            <div class="account-icon">👤</div>
+
+            <h2>تسجيل الدخول</h2>
+
+            <p class="account-subtitle">
+                ادخل على حسابك في دَوِّر
+            </p>
+
+            <label for="login-email">البريد الإلكتروني</label>
+            <input
+                type="email"
+                id="login-email"
+                required
+                placeholder="example@school.com"
+            >
+
+            <label for="login-password">كلمة المرور</label>
+            <input
+                type="password"
+                id="login-password"
+                required
+                placeholder="••••••••"
+            >
+
+            <button type="submit" class="btn btn-primary">
+                تسجيل الدخول
+            </button>
+
+            <p id="login-error" class="error-msg hidden"></p>
+
+            <p class="switch-auth">
+                مالكش حساب؟
+                <button
+                    type="button"
+                    id="show-signup-btn"
+                    class="link-btn"
+                >
+                    إنشاء حساب جديد
+                </button>
+            </p>
+
+        </form>
+
+
+        <!-- إنشاء حساب -->
+        <form id="signup-form" class="item-form auth-form hidden">
+
+            <div class="account-icon">✨</div>
+
+            <h2>إنشاء حساب جديد</h2>
+
+            <p class="account-subtitle">
+                اعمل حسابك وابدأ تستخدم دَوِّر
+            </p>
+
+            <label for="signup-name">الاسم</label>
+            <input
+                type="text"
+                id="signup-name"
+                required
+                placeholder="اسمك الكامل"
+            >
+
+            <label for="signup-email">البريد الإلكتروني</label>
+            <input
+                type="email"
+                id="signup-email"
+                required
+                placeholder="example@school.com"
+            >
+
+            <label for="signup-password">كلمة المرور</label>
+            <input
+                type="password"
+                id="signup-password"
+                required
+                minlength="6"
+                placeholder="6 أحرف على الأقل"
+            >
+
+            <button type="submit" class="btn btn-primary">
+                إنشاء الحساب
+            </button>
+
+            <p id="signup-error" class="error-msg hidden"></p>
+
+            <p class="switch-auth">
+                عندك حساب بالفعل؟
+                <button
+                    type="button"
+                    id="show-login-btn"
+                    class="link-btn"
+                >
+                    تسجيل الدخول
+                </button>
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+<!-- ===== 7. قسم أدواتي ===== -->
+<section id="my-items" class="page">
+    <h2>أدواتي</h2>
+    <p class="section-desc">هنا هتلاقي الأدوات اللي أنت أضفتها.</p>
+
+    <div id="my-items-container" class="items-grid">
+        <!-- الأدوات المضافة هتظهر هنا عن طريق JavaScript -->
+    </div>
+
+    <p id="my-items-empty" class="no-results">
+        لسه مفيش أدوات أضفتها.
+    </p>
+</section>
+    </main>
+
+    <footer class="site-footer">
+        <p>دَوِّر 🔄 — مشروع مدرسي لإعادة استخدام الأدوات</p>
+    </footer>
+
+    <!-- ملف الجافاسكريبت، لازم يتحط آخر شي عشان يقدر يوصل لكل عناصر الصفحة -->
+    <script src="script.js"></script>
+</body>
+</html>
